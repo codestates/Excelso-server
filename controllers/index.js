@@ -1,8 +1,15 @@
 module.exports = {
   user: {
-    logIn: require("./user/login"),
-    logOut: require("./user/logout"),
-    signUp: require("./user/signup"),
-    userInfo: require("./user/userInfo")
+    login: require("./user/login"),
+    logout: require("./user/logout"),
+    signup: require("./user/signup"),
+    checkNickname: require("./user/checkNickname"),
+    checkEmail: require("./user/checkEmail"),
+    changepassword: require("./user/changePassword"),
+    changenickname: require("./user/changenickname"),
   },
-}
+
+  coffee: {
+    review: require("./coffee/review"),
+  },
+};

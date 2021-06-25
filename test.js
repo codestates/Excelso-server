@@ -1,4 +1,4 @@
-const { datas } = require("./coffee");
+const { datas } = require("./seedData/coffee");
 
 const res = datas.coffeeBeans.map((obj) => {
   obj["createdAt"] = new Date()
@@ -9,6 +9,7 @@ const res = datas.coffeeBeans.map((obj) => {
     .toISOString()
     .replace(/T/, " ")
     .replace(/\..+/, "");
+  obj["brand_id"] = 5;
 });
 console.log(datas.coffeeBeans);
 // const { banner } = require("./banner");

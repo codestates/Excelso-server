@@ -1,1 +1,1 @@
-const { brand } = require("../../models");
+const { Brand } = require("../../models");
