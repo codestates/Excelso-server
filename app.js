@@ -1,10 +1,28 @@
 const express = require("express");
+const cors = require("cors");
+require('./models')
 const app = express();
+const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("<h1>Hello World</h1>");
-});
+app.use(express.json());
+const corsOption = {
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS', 'PATCH'],
+  credentials: true,
+  maxAge: 86400,
+  optionsSuccessStatus: 204
+}
+app.use(cors(corsOption));
 
-app.listen(8000, () => {
-  console.log(`start express server on port 8000`);
+//router
+
+const userRouter = require('./routers/user')
+app.use('/user', userRouter)
+// app.use('/')
+
+
+
+const server = app.listen(port, () => {
+  console.log(`http server listening on ${port}`);
 });
+module.exports = server;
