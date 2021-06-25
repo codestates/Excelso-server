@@ -22,8 +22,15 @@ module.exports = (sequelize, DataTypes) => {
   }
   Review.init(
     {
-      content: DataTypes.STRING,
-      rating: DataTypes.INTEGER,
+      content: {
+        type: DataTypes.STRING,
+        defaultValue: "",
+      },
+      rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
     },
     {
       sequelize,
