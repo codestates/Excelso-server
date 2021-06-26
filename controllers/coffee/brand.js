@@ -1,5 +1,6 @@
 const { Brand } = require("../../models");
 
+
 module.exports = async (req, res) => {
 //   console.log(Brand)
   const brandInfo = await Brand.findAll();
@@ -12,3 +13,4 @@ module.exports = async (req, res) => {
     message: "브랜드를 불러올 수 없습니다."
   })
 }
+

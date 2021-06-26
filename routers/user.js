@@ -1,10 +1,15 @@
-const express = require('express');
+
+const express = require("express");
 const router = express.Router();
-const { user, coffee } = require('../controllers');
+const { user, coffee, review, brand, banner } = require("../controllers");
 
-router.post('/login', user.login);
-router.post('/logout', user.logout);
-router.post('/signup', user.signup);
-
-
+// user
+router.post("/login", user.login);
+router.post("/logout", user.logout);
+router.post("/signup", user.signup);
+router.post("/checknicnkname", user.checkNickname);
+router.post("/checkemail", user.checkEmail);
+router.post("/changenickname", user.changenickname);
+router.post("/changepassword", user.changepassword);
 module.exports = router;
+
