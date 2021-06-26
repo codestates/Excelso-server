@@ -1,7 +1,7 @@
 
 const express = require("express");
 const router = express.Router();
-const { user, coffee, review, brand, banner } = require("../controllers");
+const { user, coffee, review } = require("../controllers");
 
 // user
 router.post("/login", user.login);

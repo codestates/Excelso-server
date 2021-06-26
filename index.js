@@ -16,7 +16,7 @@ console.log(googleConfig);
 const scopes = ["https://www.googleapis.com/auth/plus.me"];
 
 const oauth2Client = new google.auth.OAuth2(
-  googleConfig.clientID,
+  googleConfig.clientId,
   googleConfig.clientSecret,
   googleConfig.redirect
 );

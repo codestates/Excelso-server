@@ -28,7 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // cors 설정
 
-app.use(express.json());
 const corsOption = {
   origin: "*",
   methods: ["GET", "POST", "OPTIONS", "PATCH"],
@@ -45,7 +44,8 @@ const coffeeRouter = require('./routers/coffee');
 const reviewRouter = require("./routers/review");
 
 app.use("/user", userRouter);
-app.use("/coffee", reviewRouter);
+app.use("/coffee", coffeeRouter);
+app.use("/review", reviewRouter);
 // app.use('/')
 
 

@@ -14,7 +14,11 @@ module.exports = {
     brand: require("./coffee/brand"),
     coffeeInfo: require("./coffee/coffeeInfo"),
     banner: require("./coffee/banner"),
-    review: require("./coffee/review"),
   },
+
+  review: {
+    updateReview: require("./review/updateReview"),
+    getReview: require("./review/getReview")
+  }
 };
 
