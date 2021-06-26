@@ -1,10 +1,11 @@
+
 const { User } = require("../../models");
 const crypto = require("crypto");
 require("dotenv").config();
 
+
 module.exports = async (req, res) => {
   const { email, password, nickname } = req.body;
-
   const saltedPassword = password + process.env.SALT;
   const hashedPaswword = crypto
     .createHmac("sha512", process.env.CRYPTO)

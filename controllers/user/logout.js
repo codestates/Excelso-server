@@ -1,5 +1,6 @@
 const { User } = require("../../models");
 
+
 module.exports = async (req, res) => {
   req.session
     ? req.session.destroy(() => {

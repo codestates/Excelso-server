@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
 
   await User.findOne({
     where: { email, password: hashedPaswword },
+
   })
     .then((data) => {
       if (data && req.session) {
