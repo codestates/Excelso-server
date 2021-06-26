@@ -16,11 +16,10 @@ app.use(cors(corsOption));
 
 //router
 
-const userRouter = require('./routers/user')
-app.use('/user', userRouter)
-// app.use('/')
-
-
+const userRouter = require('./routers/user');
+const coffeeRouter = require('./routers/coffee');
+app.use('/user', userRouter);
+app.use('/coffee', coffeeRouter);
 
 const server = app.listen(port, () => {
   console.log(`http server listening on ${port}`);

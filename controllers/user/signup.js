@@ -1,4 +1,4 @@
-const { user } = require("../../models")
+const { User } = require("../../models")
 
 module.exports = async (req, res) => {
   const { email, password, nickname } = req.body;
@@ -9,7 +9,7 @@ module.exports = async (req, res) => {
     })
   }
 
-  await user.findOrCreate({
+  await User.findOrCreate({
     where: {
       email
     },

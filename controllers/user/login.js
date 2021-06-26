@@ -1,8 +1,8 @@
-const { user } = require("../../models");
+const { User } = require("../../models");
 
 module.exports = async (req, res) => {
   const { username, password } = req.body;
-  await user.findOne({
+  await User.findOne({
     where: {
       username,
       password,    
