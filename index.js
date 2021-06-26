@@ -8,7 +8,7 @@ var googleClient = require("./config/google.json");
 const googleConfig = {
   clientId: googleClient.web.client_id,
   clientSecret: googleClient.web.client_secret,
-  redirect: googleClient.web.redirect_uris[0]
+  redirect: googleClient.web.redirect_uris[0],
 };
 
 console.log(googleConfig);
@@ -16,7 +16,7 @@ console.log(googleConfig);
 const scopes = ["https://www.googleapis.com/auth/plus.me"];
 
 const oauth2Client = new google.auth.OAuth2(
-  googleConfig.clientID,
+  googleConfig.clientId,
   googleConfig.clientSecret,
   googleConfig.redirect
 );
@@ -26,7 +26,7 @@ const oauth2Client = new google.auth.OAuth2(
 // scope는 위에 입력한 scopes를 가져온다
 const url = oauth2Client.generateAuthUrl({
   access_type: "offline",
-  scope: scopes
+  scope: scopes,
 });
 
 // 그리고 google+ api를 사용하기 위해 google+ api에 대한 정보 입력
@@ -39,7 +39,7 @@ function getGooglePlusApi(auth) {
 async function googleLogin(code) {
   const { tokens } = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
-  oauth2Client.on("tokens", token => {
+  oauth2Client.on("tokens", (token) => {
     if (tokens.refresh_token) {
       console.log("리프레시 토큰: ", tokens.refresh_token);
     }
@@ -57,23 +57,23 @@ async function googleLogin(code) {
 // });
 
 // 로그인 할 주소
-app.get("/login", function(req, res) {
+app.get("/login", function (req, res) {
   res.redirect(url);
 });
 
 // 로그인이 되었을 경우 실행될 callback 주소
-app.get("/auth/google/callback", async function(req, res) {
+app.get("/auth/google/callback", async function (req, res) {
   const displayName = await googleLogin(req.query.code);
   console.log(displayName);
 
   res.redirect("http://localhost:3000");
 });
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
   res.send("Hello World!");
   console.log("로그인 해서 홈으로 돌아옴");
 });
 
-app.listen(3000, function() {
+app.listen(3000, function () {
   console.log("Example app listening on port 3000");
 });

@@ -41,13 +41,13 @@ app.use(cors(corsOption));
 //router
 
 const userRouter = require("./routers/user");
-const coffeeRouter = require('./routers/coffee');
+const coffeeRouter = require("./routers/coffee");
 const reviewRouter = require("./routers/review");
 
 app.use("/user", userRouter);
-app.use("/coffee", reviewRouter);
+app.use("/coffee", coffeeRouter);
+app.use("/review", reviewRouter);
 // app.use('/')
-
 
 const server = app.listen(port, () => {
   console.log(`http server listening on ${port}`);
