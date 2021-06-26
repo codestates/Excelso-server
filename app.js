@@ -28,7 +28,6 @@ app.use(express.urlencoded({ extended: false }));
 
 // cors 설정
 
-app.use(express.json());
 const corsOption = {
   origin: "*",
   methods: ["GET", "POST", "OPTIONS", "PATCH"],
