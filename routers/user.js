@@ -1,7 +1,8 @@
-
 const express = require("express");
 const router = express.Router();
-const { user, coffee, review } = require("../controllers");
+
+const { user } = require("../controllers");
+
 
 // user
 router.post("/login", user.login);
@@ -12,4 +13,3 @@ router.post("/checkemail", user.checkEmail);
 router.post("/changenickname", user.changenickname);
 router.post("/changepassword", user.changepassword);
 module.exports = router;
-

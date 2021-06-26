@@ -1,5 +1,4 @@
 module.exports = {
-
   user: {
     login: require("./user/login"),
     logout: require("./user/logout"),
@@ -18,7 +17,7 @@ module.exports = {
 
   review: {
     updateReview: require("./review/updateReview"),
-    getReview: require("./review/getReview")
-  }
+    getReview: require("./review/getReview"),
+    deleteReview: require("./review/deleteReview"),
+  },
 };
-
