@@ -1,22 +1,9 @@
-const { user } = require("../../models");
-const { isAuthorized } = require('../tokenHandle');
+const { User } = require("../../models");
 
 module.exports = async (req, res) => {
-  const token = isAuthorized(req);
-  if(!token) {
-    return res.status(400).json({
-      data: null,
-      message: 'you are currently not logined'
-    });  
-  }
-  if(token === 'err') {
-    return res.status(500).json({
-      data: null,
-      message: 'Server Error'  
-    }) 
-  }
-  res.status(205).json({
-    data: null,
-    message: 'successfully signed out!'  
-  })
-}
+  req.session
+    ? req.session.destroy(() => {
+        res.status(200).send("Delete Session");
+      })
+    : res.status(400).send("Fali Delete");
+};
