@@ -7,6 +7,7 @@ require("dotenv").config();
 
 module.exports = async (req, res) => {
   const { currentPassword, changePassword, token } = req.body;
+  
 
   const decodeToken = jwt.verify(token, process.env.JWT);
   // email과 id가 들어있다.

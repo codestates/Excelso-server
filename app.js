@@ -29,10 +29,12 @@ app.use(cors(corsOption));
 const userRouter = require("./routers/user");
 const coffeeRouter = require("./routers/coffee");
 const reviewRouter = require("./routers/review");
+const bookmarkRouter = require("./routers/bookmark");
 
 app.use("/user", userRouter);
 app.use("/coffee", coffeeRouter);
 app.use("/review", reviewRouter);
+app.use("/bookmark", bookmarkRouter);
 // app.use('/')
 
 const server = app.listen(port, () => {
