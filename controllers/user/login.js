@@ -1,34 +1,46 @@
-const { user } = require("../../models");
+const { User } = require("../../models");
+
+// Middleware
+const crypto = require("crypto");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 module.exports = async (req, res) => {
-  const { username, password } = req.body;
-  await user.findOne({
-    where: {
-      username,
-      password,    
-    }
+  const { email, password } = req.body;
+
+  const saltedPassword = password + process.env.SALT;
+  const hashedPaswword = crypto
+    .createHmac("sha512", process.env.CRYPTO)
+    .update(saltedPassword)
+    .digest("hex");
+
+  await User.findOne({
+    where: { email, password: hashedPaswword },
+
   })
-  .then((userInfo) => {
-    const { id, email, nickname } = userInfo;
-    if(!userInfo) {
-      return res.status(401).json({
-        data: null,
-        message: 'Invalid user or Wrong password'
-      })
-    }
-    res.status(200).json({
-      accessToken,
-      data: {
-        id,
-        email,
-        nickname,   
-      }  
+    .then((data) => {
+      if (data && req.session) {
+        let token = jwt.sign(
+          { user_id: data.id, info: email },
+          process.env.JWT
+        );
+
+        req.session.user_id = token;
+        console.log("데이터들어왔다");
+        res.status(200).send({
+          token,
+          info: {
+            id: data.dataValues.id,
+            email: data.dataValues.email,
+            nickname: data.dataValues.nickname,
+          },
+          message: "success",
+        });
+      } else {
+        res.status(404).send("invalid user");
+      }
     })
-  }
-  ).catch(err => {
-    return res.status(500).json({
-      data: null,
-      message: 'Server Error' 
-    })
-  })    
-}
+    .catch((err) => {
+      res.status(409).send(err);
+    });
+};
