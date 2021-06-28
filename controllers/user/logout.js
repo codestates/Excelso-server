@@ -6,5 +6,5 @@ module.exports = async (req, res) => {
     ? req.session.destroy(() => {
         res.status(200).send("Delete Session");
       })
-    : res.status(400).send("Fali Delete");
+    : res.status(400).send("Fail Delete");
 };

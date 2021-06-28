@@ -6,8 +6,10 @@ const app = express();
 const port = 3000;
 require("dotenv").config();
 
-// session-cookie 설정
-
+// app.set("view engine", "ejs");
+// app.get("/", (req, res) => {
+//   return res.render("index");
+// });
 app.use(
   session({
     secret: process.env.SESSION,
@@ -24,12 +26,12 @@ app.use(
     },
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 // cors 설정
 
-app.use(express.json());
 const corsOption = {
   origin: "*",
   methods: ["GET", "POST", "OPTIONS", "PATCH"],
@@ -44,10 +46,12 @@ app.use(cors(corsOption));
 const userRouter = require("./routers/user");
 const coffeeRouter = require("./routers/coffee");
 const reviewRouter = require("./routers/review");
+const bookmarkRouter = require("./routers/bookmark");
 
 app.use("/user", userRouter);
 app.use("/coffee", coffeeRouter);
 app.use("/review", reviewRouter);
+app.use("/bookmark", bookmarkRouter);
 // app.use('/')
 
 const server = app.listen(port, () => {
