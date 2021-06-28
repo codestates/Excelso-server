@@ -12,4 +12,7 @@ router.post("/checknicnkname", user.checkNickname);
 router.post("/checkemail", user.checkEmail);
 router.post("/changenickname", user.changenickname);
 router.post("/changepassword", user.changepassword);
+router.post("/deleteUser", user.deleteUser);
+
+
 module.exports = router;
