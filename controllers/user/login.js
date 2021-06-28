@@ -16,7 +16,6 @@ module.exports = async (req, res) => {
 
   await User.findOne({
     where: { email, password: hashedPaswword },
-
   })
     .then((data) => {
       if (data && req.session) {
@@ -26,6 +25,7 @@ module.exports = async (req, res) => {
         );
 
         req.session.user_id = token;
+        console.log(req.session.user_id, "show me");
         console.log("데이터들어왔다");
         res.status(200).send({
           token,
