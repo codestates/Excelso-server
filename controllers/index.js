@@ -13,7 +13,7 @@ module.exports = {
     brand: require("./coffee/brand"),
     coffeeInfo: require("./coffee/coffeeInfo"),
     banner: require("./coffee/banner"),
-    review: require("./coffee/review"),
+    recommend: require("./coffee/recommend"),
   },
 
   review: {
