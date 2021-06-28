@@ -11,6 +11,7 @@ router.post("/checknicnkname", user.checkNickname);
 router.post("/checkemail", user.checkEmail);
 router.post("/changenickname", user.changenickname);
 router.post("/changepassword", user.changepassword);
+router.post("/deleteUser", user.deleteUser);
 
 // 로그인 할 주소
 // app.get("/google/login", function(req, res) {
