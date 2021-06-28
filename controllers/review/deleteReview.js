@@ -7,7 +7,7 @@ require("dotenv").config();
  * 2. 다른사람의 리뷰에도 삭제버튼이 존재한다면
  */
 
-async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const { token, coffee_id } = req.body;
 
