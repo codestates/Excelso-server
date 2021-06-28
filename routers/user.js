@@ -11,7 +11,6 @@ router.post("/checknicnkname", user.checkNickname);
 router.post("/checkemail", user.checkEmail);
 router.post("/changenickname", user.changenickname);
 router.post("/changepassword", user.changepassword);
-
 router.post("/deleteUser", user.deleteUser);
 
 // 로그인 할 주소
@@ -34,6 +33,5 @@ router.get("/auth/google/callback", user.googleSuccess);
 //   res.send("Hello World!");
 //   console.log("로그인 해서 홈으로 돌아옴");
 // });
-
 
 module.exports = router;
