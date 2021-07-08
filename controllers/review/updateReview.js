@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 module.exports = async (req, res) => {
+  console.log("리뷰등록 또는 수정");
   const { coffee_id, content, token, rating } = req.body;
 
   const decodeToken = jwt.verify(token, process.env.JWT);

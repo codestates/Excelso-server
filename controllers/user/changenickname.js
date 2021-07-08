@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
 
   const decodeToken = jwt.verify(token, process.env.JWT);
 
-  User.findOne({
+  await User.findOne({
     where: { email: decodeToken.info },
   }).then((data) => {
     data.dataValues.nickname !== changeNickname
@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
           { where: { email: decodeToken.info } }
         )
           .then(() => res.status(200).send("닉네임을 변경하였습니다."))
-          .catch((err) => res.status(400).send(err))
+          .catch((err) => res.status(400).send("실패"))
       : res.status(409).send("닉네임 변경에 실패하였습니다.");
   });
 };
