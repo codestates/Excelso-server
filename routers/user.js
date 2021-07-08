@@ -7,11 +7,11 @@ const { user } = require("../controllers");
 router.post("/login", user.login);
 router.post("/logout", user.logout);
 router.post("/signup", user.signup);
-router.post("/checknicnkname", user.checkNickname);
-router.post("/checkemail", user.checkEmail);
-router.patch("/changenickname", user.changenickname);
-router.patch("/changepassword", user.changepassword);
-router.post("/deleteuser", user.deleteUser);
+router.post("/checkNickname", user.checkNickname);
+router.post("/checkEmail", user.checkEmail);
+router.post("/changenickname", user.changenickname);
+router.post("/changePassword", user.changepassword);
+router.post("/deleteUser", user.deleteUser);
 
 // 로그인 할 주소
 // app.get("/google/login", function(req, res) {
