@@ -9,9 +9,9 @@ router.post("/logout", user.logout);
 router.post("/signup", user.signup);
 router.post("/checknicnkname", user.checkNickname);
 router.post("/checkemail", user.checkEmail);
-router.post("/changenickname", user.changenickname);
-router.post("/changepassword", user.changepassword);
-router.post("/deleteUser", user.deleteUser);
+router.patch("/changenickname", user.changenickname);
+router.patch("/changepassword", user.changepassword);
+router.post("/deleteuser", user.deleteUser);
 
 // 로그인 할 주소
 // app.get("/google/login", function(req, res) {

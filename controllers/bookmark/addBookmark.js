@@ -1,33 +1,33 @@
-const { User, Coffee, Bookmark } = require("../../models")
+const { User, Coffee, Bookmark } = require("../../models");
 // findOrCreate
 module.exports = async (req, res) => {
   const { user_id, coffee_id } = req.body;
   //토큰을 어떻게 할지 자리
   try {
-  const [ info, exist ] = Bookmark.findOrCreate({
-    where: { user_id, coffee_id },
-  })
-
-  if(!exist) {
-    //존재하지 않으면
-    return res.status(200).json({
-      message: '즐겨찾기에 추가되었습니다.'  
-    }) 
-  }else {
-    await Bookmark.destroy({
+    const [info, exist] = Bookmark.findOrCreate({
       where: { user_id, coffee_id },
-    }).then(() => {
+    });
+
+    if (!exist) {
+      //존재하지 않으면
       return res.status(200).json({
-        message: "즐겨찾기가 해제되었습니다.",
-      })
-    })
+        message: "즐겨찾기에 추가되었습니다.",
+      });
+    } else {
+      await Bookmark.destroy({
+        where: { user_id, coffee_id },
+      }).then(() => {
+        return res.status(201).json({
+          message: "즐겨찾기가 해제되었습니다.",
+        });
+      });
+    }
+  } catch (err) {
+    res.status(500).json({
+      message: "server error",
+    });
   }
-}catch (err) {
-  res.status(500).json({
-    message: 'server error',
-  })
- }
-}
+};
 
 //   const bookmarkInfo = await Bookmark.findOne({
 //     where: { user_id, coffee_id }
@@ -57,7 +57,6 @@ module.exports = async (req, res) => {
 // }
 
 // 클라이언트 화면에서 user_id와 coffee_id를 이용
-
 
 // if(bookmarkInfo) {
 //     Bookmark.destroy({
