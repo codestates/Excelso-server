@@ -7,10 +7,10 @@ const { user } = require("../controllers");
 router.post("/login", user.login);
 router.post("/logout", user.logout);
 router.post("/signup", user.signup);
-router.post("/checknicnkname", user.checkNickname);
-router.post("/checkemail", user.checkEmail);
-router.post("/changenickname", user.changenickname);
-router.post("/changepassword", user.changepassword);
+router.post("/checkNickname", user.checkNickname);
+router.post("/checkEmail", user.checkEmail);
+// router.post("/changenickname", user.changenickname);
+router.post("/changePassword", user.changepassword);
 router.post("/deleteUser", user.deleteUser);
 
 // 로그인 할 주소
