@@ -19,16 +19,16 @@ module.exports = async (req, res) => {
   })
     .then((data) => {
       if (data && req.session) {
-        let token = jwt.sign(
+        let accessToken = jwt.sign(
           { user_id: data.id, info: email },
           process.env.JWT
         );
 
-        req.session.user_id = token;
+        req.session.user_id = accessToken;
         console.log(req.session.user_id, "show me");
         console.log("데이터들어왔다");
         res.status(200).send({
-          token,
+          accessToken,
           info: {
             id: data.dataValues.id,
             email: data.dataValues.email,

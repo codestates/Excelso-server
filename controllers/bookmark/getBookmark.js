@@ -3,7 +3,7 @@ const { User, Coffee, Bookmark, Review } = require("../../models")
 module.exports = async (req, res) => {
   // bookmark에 있는 정보로 즐겨찾기를 나열
   // 토큰 가져오는 방식
-  const { user_id, coffee_id } = req.body;
+  const { user_id } = req.params;
   const bookmarkInfo = await Bookmark.findAll({
     where: { user_id },
     raw: true,
@@ -14,9 +14,9 @@ module.exports = async (req, res) => {
         attributes: ["title", "src", "id"]
       },
       {
-        model: Review,
-        as: "Review",
-        attributes: ["rating"],
+        model: User,
+        as: "User",
+        attributes: ["id"],
       }
     ]
   })
