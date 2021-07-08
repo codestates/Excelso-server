@@ -6,7 +6,7 @@ module.exports = {
     checkNickname: require("./user/checkNickname"),
     checkEmail: require("./user/checkEmail"),
     changepassword: require("./user/changePassword"),
-    changenickname: require("./user/changeNickname"),
+    changenickname: require("./user/changenickname"),
     deleteUser: require("./user/deleteUser"),
     googleLogin: require("./user/googleLogin"),
     googleSuccess: require("./user/googleloginsuccess"),
