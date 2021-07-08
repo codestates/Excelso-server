@@ -9,7 +9,7 @@ router.post("/logout", user.logout);
 router.post("/signup", user.signup);
 router.post("/checkNickname", user.checkNickname);
 router.post("/checkEmail", user.checkEmail);
-// router.post("/changenickname", user.changenickname);
+router.post("/changenickname", user.changenickname);
 router.post("/changePassword", user.changepassword);
 router.post("/deleteUser", user.deleteUser);
 

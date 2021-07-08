@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
         {
           model: User,
           as: "User",
-          attributes: ["nickname", "id"],
+          attributes: ["nickname", "id", "email"],
         },
       ],
     });
@@ -35,6 +35,7 @@ module.exports = async (req, res) => {
           coffee_id: review.coffee_id,
           user_id: review["User.id"],
           nickname: review["User.nickname"],
+          email: review["User.email"],
         }
       );
     });
