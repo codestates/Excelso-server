@@ -63,7 +63,7 @@ app.get('/auth', async (req, res) => {
     const user_id = decodeToken.user_id;
 
     await User.findOne({
-      where: { id: user_id},
+      where: { id: user_id },
       raw: true
     }).then((data) => {
       if(data) {
@@ -77,7 +77,7 @@ app.get('/auth', async (req, res) => {
           message: "success",
         })
       } else {
-        res.status(404).send('fali')
+        res.status(404).send('fail')
       }
     })
   }
