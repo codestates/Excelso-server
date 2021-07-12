@@ -7,7 +7,7 @@ require("dotenv").config();
 
 module.exports = async (req, res) => {
   const { email, password } = req.body;
-
+  const session = req.session;
   const saltedPassword = password + process.env.SALT;
   const hashedPaswword = crypto
     .createHmac("sha512", process.env.CRYPTO)
@@ -18,29 +18,24 @@ module.exports = async (req, res) => {
     where: { email, password: hashedPaswword },
   })
     .then((data) => {
-      if (data && req.session) {
-
-        let token = jwt.sign({ user_id: data.id, info: email },
+      if (data && session) {
+        let accessToken = jwt.sign(
+          { user_id: data.id, info: email },
           process.env.JWT
         );
-
-
-        req.session.user_id = token;
-        console.log(req.session.user_id, "show me");
-        console.log("데이터들어왔다");
-          
-        req.session.user_id = accessToken;
-        console.log(req.session.user_id, "show me");
-        console.log("데이터들어왔다");
-        res.status(200).send({
-          token,
-          info: {
-            id: data.dataValues.id,
-            email: data.dataValues.email,
-            nickname: data.dataValues.nickname,
-          },
-          message: "success",
-        });
+        session.save(function() {
+            session.userId = accessToken
+            res.cookie('token', accessToken)
+            res.status(200).send({
+            accessToken,
+            info: {
+              id: data.dataValues.id,
+              email: data.dataValues.email,
+              nickname: data.dataValues.nickname,
+            },
+            message: "success",
+          });
+        })
       } else {
         res.status(404).send("invalid user");
       }
