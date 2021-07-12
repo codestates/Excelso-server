@@ -3,7 +3,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const jwt = require("jsonwebtoken");
-const {User} = require("./models/user")
+const {User} = require("./models")
 const app = express();
 const port = 3000;
 require("dotenv").config();
@@ -20,6 +20,7 @@ app.use(
     saveUninitialized: true,
     rolling: true,
     cookie: {
+      domain: 'localhost',
       path: "/",
       sameSite: "none",
       httpOnly: true,
@@ -56,19 +57,20 @@ app.use("/review", reviewRouter);
 app.use("/bookmark", bookmarkRouter);
 // app.use('/')
 
-app.get('/auth', async (req, res) => {
-  try{
-  if(req.session.user_id) {
-    const decodeToken = jwt.verify(req.session.user_id, process.env.JWT);
+app.post('/auth',  async (req, res) => {
+  const {accessToken} = req.body
+  console.log(typeof `"${accessToken}"`, 'accessToken')
+  if(accessToken) {
+    const decodeToken = jwt.verify(JSON.parse(`"${accessToken}"`), process.env.JWT);
     const user_id = decodeToken.user_id;
-
+    console.log('user_id:', user_id)
     await User.findOne({
       where: { id: user_id},
       raw: true
     }).then((data) => {
       if(data) {
         res.status(200).send({
-          token: req.session.user_id,
+          accessToken,
           info: {
             id: data.id,
             email: data.email,
@@ -80,9 +82,6 @@ app.get('/auth', async (req, res) => {
         res.status(404).send('fali')
       }
     })
-  }
-  }catch(e){
-
   }
 })
 

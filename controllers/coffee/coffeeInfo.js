@@ -2,7 +2,7 @@ const { Coffee } = require("../../models");
 
 module.exports = async (req, res) => {
   const coffeeInfo = await Coffee.findAll();
-  
+  console.log('확인화깅화깅ㄴ',req.session)
   if(coffeeInfo) {
     return res.status(200).json(coffeeInfo)
   }

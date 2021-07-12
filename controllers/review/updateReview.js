@@ -5,6 +5,7 @@ require("dotenv").config();
 module.exports = async (req, res) => {
   console.log("리뷰등록 또는 수정");
   const { coffee_id, content, token, rating } = req.body;
+  console.log("token", token)
 
   const decodeToken = jwt.verify(token, process.env.JWT);
   const user_id = decodeToken.user_id;
