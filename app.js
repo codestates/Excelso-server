@@ -33,8 +33,8 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-// cors 설정
 
+// cors 설정
 const corsOption = {
   origin: "*",
   methods: ["GET", "POST", "OPTIONS", "PATCH"],

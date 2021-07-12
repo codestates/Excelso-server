@@ -13,6 +13,7 @@ router.patch("/changenickname", user.changenickname);
 router.patch("/changepassword", user.changepassword);
 router.post("/deleteuser", user.deleteUser);
 
+
 // 로그인 할 주소
 // app.get("/google/login", function(req, res) {
 //   res.redirect(url);
