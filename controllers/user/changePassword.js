@@ -12,18 +12,31 @@ module.exports = async (req, res) => {
   // email과 id가 들어있다.
   console.log("decodeToken", decodeToken);
 
-  const saltedPassword = changePassword + process.env.SALT;
-  const hashedPaswword = crypto
+  const saltedPassword1 = currentPassword + process.env.SALT;
+  const hashedPaswword1 = crypto
     .createHmac("sha512", process.env.CRYPTO)
     .update(saltedPassword)
     .digest("hex");
 
-  User.findOne({
+  const saltedPassword2 = changePassword + process.env.SALT;
+  const hashedPaswword2 = crypto
+    .createHmac("sha512", process.env.CRYPTO)
+    .update(saltedPassword2)
+    .digest("hex");
+
+  await User.findOne({
     where: { email: decodeToken.info },
   }).then((data) => {
-    data.dataValues.password !== hashedPaswword
+    data.dataValues.password !== hashedPaswword1 &&
+      res.status(409).send("현재비밀번호가 일치하지않습니다.");
+  });
+
+  await User.findOne({
+    where: { email: decodeToken.info },
+  }).then((data) => {
+    data.dataValues.password !== hashedPaswword2
       ? User.update(
-          { password: hashedPaswword },
+          { password: hashedPaswword2 },
           { where: { email: decodeToken.info } }
         )
           .then(() => {
@@ -32,6 +45,6 @@ module.exports = async (req, res) => {
           .catch((err) => {
             res.status(400).send("what error");
           })
-      : res.status(409).send("비밀번호변경에 실패하였습니다");
+      : res.status(409).send("새로운 비밀번호를 입력해주세요");
   });
 };

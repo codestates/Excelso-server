@@ -25,6 +25,11 @@ module.exports = async (req, res) => {
         );
 
         req.session.user_id = token;
+        console.log(req.session.user_id, "show me");
+        console.log("데이터들어왔다");
+
+        req.session.user_id = accessToken;
+        console.log(req.session.user_id, "show me");
         console.log("데이터들어왔다");
         res.status(200).send({
           token,

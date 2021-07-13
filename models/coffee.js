@@ -29,6 +29,9 @@ module.exports = (sequelize, DataTypes) => {
       ml: DataTypes.INTEGER,
       sugar: DataTypes.INTEGER,
       caffeine: DataTypes.INTEGER,
+      protein: DataTypes.INTEGER,
+      salt: DataTypes.INTEGER,
+      fat: DataTypes.INTEGER,
     },
     {
       sequelize,

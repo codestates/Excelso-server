@@ -7,17 +7,26 @@ module.exports = {
     checkEmail: require("./user/checkEmail"),
     changepassword: require("./user/changePassword"),
     changenickname: require("./user/changenickname"),
+    deleteUser: require("./user/deleteUser"),
+    googleLogin: require("./user/googleLogin"),
+    googleSuccess: require("./user/googleloginsuccess"),
   },
 
   coffee: {
     brand: require("./coffee/brand"),
     coffeeInfo: require("./coffee/coffeeInfo"),
     banner: require("./coffee/banner"),
+    recommend: require("./coffee/recommend"),
   },
 
   review: {
     updateReview: require("./review/updateReview"),
     getReview: require("./review/getReview"),
     deleteReview: require("./review/deleteReview"),
+  },
+
+  bookmark: {
+    addBookmark: require("./bookmark/addBookmark"),
+    getBookmark: require("./bookmark/getBookmark"),
   },
 };
