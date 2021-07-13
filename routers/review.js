@@ -9,5 +9,6 @@ router.get("/:coffee_id", review.getReview);
 // delete review
 router.post("/delete", review.deleteReview);
 
+router.get("/u/:user_id", review.userGetReview);
 
 module.exports = router;
