@@ -42,7 +42,10 @@ module.exports = async (req, res) => {
     console.log("2차과정 통과");
     console.log("review", reviews);
     if (reviews.length > 0) {
-      res.status(200).send(a);
+      req.session.save(function() {
+        req.session.coffeeId = coffee_id
+        res.status(200).send(a);
+      })
     } else {
       res.status(404).send("No review");
     }

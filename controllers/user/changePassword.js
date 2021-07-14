@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
   const saltedPassword1 = currentPassword + process.env.SALT;
   const hashedPaswword1 = crypto
     .createHmac("sha512", process.env.CRYPTO)
-    .update(saltedPassword)
+    .update(saltedPassword1)
     .digest("hex");
 
   const saltedPassword2 = changePassword + process.env.SALT;
