@@ -23,6 +23,7 @@ module.exports = {
     updateReview: require("./review/updateReview"),
     getReview: require("./review/getReview"),
     deleteReview: require("./review/deleteReview"),
+    userGetReview: require("./review/userGetReview"),
   },
 
   bookmark: {

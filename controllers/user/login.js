@@ -15,7 +15,7 @@ module.exports = async (req, res) => {
     .digest("hex");
 
   await User.findOne({
-    where: { email, password: hashedPaswword },
+    where: { email, password: hashedPaswword }
   })
     .then((data) => {
       if (data && session) {
@@ -36,11 +36,12 @@ module.exports = async (req, res) => {
             message: "success",
           });
         })
+
       } else {
         res.status(404).send("invalid user");
       }
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(409).send(err);
     });
 };

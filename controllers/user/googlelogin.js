@@ -35,7 +35,7 @@ function getGooglePlusApi(auth) {
 // 실질적으로 로그인해서 정보를 불러올 코드 작성
 // 간단하게 refresh token, access token, id 를 불러온다
 module.exports = async function googleLogin(code) {
-  // get("/google/login") 할 때 아래와 같이 redirect
+  // get("/google/login") 할 때 아래와 같이 redirect(클라이언트)
   // res.redirect(url);
   const { tokens } = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
