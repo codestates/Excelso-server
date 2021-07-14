@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
         {
           model: Coffee,
           as: "Coffee",
-          attributes: ["src"],
+          attributes: ["src", "title"],
         }
       ],
     });
@@ -32,6 +32,7 @@ module.exports = async (req, res) => {
           updatedAt: review.updatedAt,
           coffee_id: review.coffee_id,
           src: review["Coffee.src"],
+          title: review["Coffee.title"],
         }
       )
     })
