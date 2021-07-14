@@ -54,16 +54,13 @@ app.use("/review", reviewRouter);
 app.use("/bookmark", bookmarkRouter);
 // app.use('/')
 
-app.post("/auth", async (req, res) => {
-  const { accessToken } = req.body;
-  console.log(typeof `"${accessToken}"`, "accessToken");
-  if (accessToken) {
-    const decodeToken = jwt.verify(
-      JSON.parse(`"${accessToken}"`),
-      process.env.JWT
-    );
+app.post('/auth',  async (req, res) => {
+  const {accessToken} = req.body
+  console.log(typeof `"${accessToken}"`, 'accessToken')
+  if(accessToken) {
+    const decodeToken = jwt.verify(JSON.parse(`"${accessToken}"`), process.env.JWT);
     const user_id = decodeToken.user_id;
-    console.log("user_id:", user_id);
+    console.log('user_id:', user_id)
     await User.findOne({
       where: { id: user_id },
       raw: true
@@ -83,7 +80,8 @@ app.post("/auth", async (req, res) => {
       }
     });
   }
-});
+})
+
 
 // google social login
 const { OAuth2Client } = require("google-auth-library");
@@ -141,7 +139,6 @@ app.get("/me", async (req, res) => {
   res.status(200).json(req.user);
 });
 
-// 끝
 
 const server = app.listen(port, () => {
   console.log(`http server listening on ${port}`);
