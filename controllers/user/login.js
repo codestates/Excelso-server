@@ -15,32 +15,32 @@ module.exports = async (req, res) => {
     .digest("hex");
 
   await User.findOne({
-    where: { email, password: hashedPaswword },
+    where: { email, password: hashedPaswword }
   })
-    .then((data) => {
+    .then(data => {
       if (data && session) {
         let accessToken = jwt.sign(
           { user_id: data.id, info: email },
           process.env.JWT
         );
         session.save(function() {
-            session.userId = accessToken
-            res.cookie('token', accessToken)
-            res.status(200).send({
+          session.userId = accessToken;
+          res.cookie("token", accessToken);
+          res.status(200).send({
             accessToken,
             info: {
               id: data.dataValues.id,
               email: data.dataValues.email,
-              nickname: data.dataValues.nickname,
+              nickname: data.dataValues.nickname
             },
-            message: "success",
+            message: "success"
           });
-        })
+        });
       } else {
         res.status(404).send("invalid user");
       }
     })
-    .catch((err) => {
+    .catch(err => {
       res.status(409).send(err);
     });
 };

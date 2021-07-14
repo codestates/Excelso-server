@@ -17,9 +17,8 @@ module.exports = async (req, res) => {
     const decodeToken = jwt.verify(token, process.env.JWT);
     const user_id = decodeToken.user_id;
 
-
     const deleteReview = await Review.destroy({
-      where: { user_id, coffee_id },
+      where: { user_id, coffee_id }
     }).catch(() => res.status(500).send("Server Error"));
 
     console.log("deleteReview", deleteReview);
