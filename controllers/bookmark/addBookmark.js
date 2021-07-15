@@ -1,11 +1,11 @@
 const { User, Coffee, Bookmark } = require("../../models");
 // findOrCreate
 module.exports = async (req, res) => {
-  const { user_id, coffee_id } = req.body;
+  const { user_id, coffee_id, review_id } = req.body;
   //토큰을 어떻게 할지 자리
   try {
     const [info, exist] = Bookmark.findOrCreate({
-      where: { user_id, coffee_id },
+      where: { user_id, coffee_id, review_id },
     });
 
     if (!exist) {
