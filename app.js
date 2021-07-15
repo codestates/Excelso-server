@@ -54,13 +54,16 @@ app.use("/review", reviewRouter);
 app.use("/bookmark", bookmarkRouter);
 // app.use('/')
 
-app.post('/auth',  async (req, res) => {
-  const {accessToken} = req.body
-  console.log(typeof `"${accessToken}"`, 'accessToken')
-  if(accessToken) {
-    const decodeToken = jwt.verify(JSON.parse(`"${accessToken}"`), process.env.JWT);
+app.post("/auth", async (req, res) => {
+  const { accessToken } = req.body;
+  console.log(typeof `"${accessToken}"`, "accessToken");
+  if (accessToken) {
+    const decodeToken = jwt.verify(
+      JSON.parse(`"${accessToken}"`),
+      process.env.JWT
+    );
     const user_id = decodeToken.user_id;
-    console.log('user_id:', user_id)
+    console.log("user_id:", user_id);
     await User.findOne({
       where: { id: user_id },
       raw: true
@@ -80,8 +83,7 @@ app.post('/auth',  async (req, res) => {
       }
     });
   }
-})
-
+});
 
 // google social login
 const { OAuth2Client } = require("google-auth-library");
@@ -97,25 +99,42 @@ app.post("/api/v1/auth/google", async (req, res) => {
 
   const { name, email } = ticket.getPayload();
 
-  const [user, success] = await User.upsert({
-    nickname: name,
+  const user = await User.findOne({
     email
   });
 
-  if (success === false) {
-    res.status(404).send();
-    return;
+  if (!user) {
+    await User.insert({
+      nickname: name,
+      email
+    });
   }
 
   const loginUser = await User.findOne({
-    where: { id: user.id }
+    where: { email }
   });
 
   console.log(loginUser);
+  console.log(loginUser.dataValues);
 
   req.session.userId = user.id;
 
-  res.status(201).json(loginUser);
+  let accessToken = jwt.sign(
+    {
+      user_id: loginUser.dataValues.id,
+      info: loginUser.dataValues.email
+    },
+    process.env.JWT
+  );
+  res.status(201).json({
+    accessToken,
+    info: {
+      id: loginUser.dataValues.id,
+      email: loginUser.dataValues.email,
+      nickname: loginUser.dataValues.nickname
+    },
+    message: "success"
+  });
 });
 
 // app.use(async (req, res, next) => {
@@ -138,7 +157,6 @@ app.get("/api/v1/auth/logout", async (req, res) => {
 app.get("/me", async (req, res) => {
   res.status(200).json(req.user);
 });
-
 
 const server = app.listen(port, () => {
   console.log(`http server listening on ${port}`);
