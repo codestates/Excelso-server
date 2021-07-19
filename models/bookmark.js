@@ -20,21 +20,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: { name: "user_id", allowNull: false },
         onDelete: "CASCADE",
       })
-
-      this.belongsTo(Review, {
-        foreignKey: { name: "review_id", allowNull: false },
-        onDelete: "CASCADE",
-      })
-
     }
   };
   Bookmark.init({
     user_id: DataTypes.INTEGER,
     coffee_id: DataTypes.INTEGER,
-    review_id: DataTypes.INTEGER
+    rating: DataTypes.INTEGER,    
   }, {
     sequelize,
     modelName: 'Bookmark',
+    tableName: 'Bookmark',
   });
   return Bookmark;
 };

@@ -16,10 +16,11 @@ module.exports = {
     dialect: "mysql",
   },
   production: {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: "127.0.0.1",
+    username: process.env.RDS_DB_USERNAME,
+    password: process.env.RDS_DB_PASSWORD,
+    database: process.env.RDS_DB_NAME,
+    port: process.env.RDS_DB_PORT,
+    host: process.env.RDS_DB_HOST,
     dialect: "mysql",
   },
 };

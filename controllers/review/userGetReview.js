@@ -33,6 +33,7 @@ module.exports = async (req, res) => {
           coffee_id: review.coffee_id,
           src: review["Coffee.src"],
           title: review["Coffee.title"],
+          user_id: user_id,
         }
       )
     })
