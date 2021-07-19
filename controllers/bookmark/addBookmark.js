@@ -1,29 +1,36 @@
 const { User, Coffee, Bookmark } = require("../../models");
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 // findOrCreate
 module.exports = async (req, res) => {
-  const { user_id, coffee_id, review_id } = req.body;
+  console.log("req!!!!!!!!!!!", req.body);
+  const { token, coffee_id, rating } = req.body;
+  const decodeToken = jwt.verify(token, process.env.JWT);
+  const user_id = decodeToken.user_id;
   //토큰을 어떻게 할지 자리
   try {
-    const [info, exist] = Bookmark.findOrCreate({
-      where: { user_id, coffee_id, review_id },
-    });
-
-    if (!exist) {
-      //존재하지 않으면
-      return res.status(200).json({
-        message: "즐겨찾기에 추가되었습니다.",
-      });
-    } else {
-      await Bookmark.destroy({
-        where: { user_id, coffee_id },
-      }).then(() => {
-        return res.status(201).json({
-          message: "즐겨찾기가 해제되었습니다.",
+    await Bookmark.findOrCreate({
+      where: { user_id, coffee_id },
+      default: { rating },
+    }).then(async ([info, created]) => {
+      if (created) {
+        //존재하지 않으면
+        return res.status(200).send({
+          message: "즐겨찾기에 추가되었습니다.",
         });
-      });
-    }
+      } else {
+        await Bookmark.destroy({
+          where: { user_id, coffee_id },
+        }).then(() => {
+          return res.status(200).send({
+            message: "즐겨찾기가 해제되었습니다.",
+          });
+        });
+      }      
+    })
   } catch (err) {
-    res.status(500).json({
+    console.log(err, rating);
+    res.status(500).send({
       message: "server error",
     });
   }

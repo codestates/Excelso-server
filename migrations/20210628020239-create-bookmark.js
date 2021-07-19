@@ -26,14 +26,8 @@ module.exports = {
           key: "id",
         },
       },
-      review_id: {
-        allowNull: false,
-        onDelete: "CASCADE",
+      rating: {
         type: Sequelize.INTEGER,
-        references: {
-          model: "Review",
-          key: "id",
-        },
       },
       createdAt: {
         allowNull: false,

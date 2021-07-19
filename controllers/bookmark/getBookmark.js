@@ -3,6 +3,7 @@ const { User, Coffee, Bookmark, Review } = require("../../models")
 module.exports = async (req, res) => {
   // bookmark에 있는 정보로 즐겨찾기를 나열
   // 토큰 가져오는 방식
+ console.log(req.params)
  try{
   const { user_id } = req.params;
 
@@ -15,11 +16,6 @@ module.exports = async (req, res) => {
         as: "Coffee",
         attributes: ["title", "src", "id", "category"]
       },
-      {
-        model: Review,
-        as: "Review",
-        attributes: ["rating"],
-      }
     ]
   })
 
@@ -32,12 +28,14 @@ module.exports = async (req, res) => {
         src: data["Coffee.src"],
         coffee_id: data["Coffee.id"],
         category: data["Coffee.category"],
-        rating: data["Review.rating"],
+        rating: data.rating,
+        createdAt: data.createdAt,
+        updatedAt: data.updatedAt,
       }
     )
   })
   
-  if(bookmarkInfo > 0) {
+  if(bookmarkInfo.length > 0) {
     res.status(200).send(personalData);
   }else {
     res.status(404).send("check bookmarkInfo plz");
