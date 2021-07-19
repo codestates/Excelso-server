@@ -91,20 +91,20 @@ const client = new OAuth2Client(process.env.CLIENT_ID);
 
 app.post("/api/v1/auth/google", async (req, res) => {
   const { token } = req.body;
-
+  // console.log(token)
   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: process.env.CLIENT_ID
   });
-
+  // console.log(ticket)
   const { name, email } = ticket.getPayload();
-
+  console.log(name, email)
   const user = await User.findOne({
-    email
+    where: { email }
   });
-
+  // console.log(user)
   if (!user) {
-    await User.insert({
+    await User.create({
       nickname: name,
       email
     });
@@ -113,11 +113,13 @@ app.post("/api/v1/auth/google", async (req, res) => {
   const loginUser = await User.findOne({
     where: { email }
   });
+  // const userData = loginUser.dataValues;
+  // console.log("!!!!!!!!!!!", loginUser.email)
 
-  console.log(loginUser);
-  console.log(loginUser.dataValues);
+  // console.log(loginUser);
+  // console.log(loginUser.dataValues);
 
-  req.session.userId = user.id;
+  req.session.userId = loginUser.dataValues.id;
 
   let accessToken = jwt.sign(
     {
@@ -126,6 +128,7 @@ app.post("/api/v1/auth/google", async (req, res) => {
     },
     process.env.JWT
   );
+  console.log(accessToken)
   res.status(201).json({
     accessToken,
     info: {
